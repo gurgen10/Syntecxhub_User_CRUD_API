@@ -23,6 +23,31 @@ const userSchema = new mongoose.Schema({
         maxlength: [128, 'Stored password hash exceeds maximum length'],
         select: false,
     },
+    profilePicture: {
+        originalName: {
+            type: String,
+            maxlength: [255, 'Original file name cannot exceed 255 characters'],
+        },
+        filename: {
+            type: String,
+            maxlength: [255, 'Stored file name cannot exceed 255 characters'],
+        },
+        mimeType: {
+            type: String,
+            maxlength: [100, 'MIME type cannot exceed 100 characters'],
+        },
+        size: {
+            type: Number,
+            min: [0, 'File size cannot be negative'],
+        },
+        url: {
+            type: String,
+            maxlength: [512, 'Profile picture url is too long'],
+        },
+        uploadedAt: {
+            type: Date,
+        },
+    },
 }, { timestamps: true });
 
 userSchema.set('toJSON', {

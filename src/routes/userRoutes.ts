@@ -5,8 +5,12 @@ import {
   createUser,
   deleteUser,
   updateUser,
+  uploadUserProfilePicture,
+  getUserProfilePicture,
+  deleteUserProfilePicture,
 } from "../controllers/user.controller.js";
 import { validateBody, validateParams } from "../middleware/validateRequest.js";
+import { uploadProfilePicture } from "../middleware/profilePictureUpload.js";
 import {
   createUserBodySchema,
   updateUserBodySchema,
@@ -26,6 +30,25 @@ router.put(
   validateParams(userIdParamSchema),
   validateBody(updateUserBodySchema),
   updateUser,
+);
+
+router.put(
+  "/:id/profile-picture",
+  validateParams(userIdParamSchema),
+  uploadProfilePicture,
+  uploadUserProfilePicture,
+);
+
+router.get(
+  "/:id/profile-picture",
+  validateParams(userIdParamSchema),
+  getUserProfilePicture,
+);
+
+router.delete(
+  "/:id/profile-picture",
+  validateParams(userIdParamSchema),
+  deleteUserProfilePicture,
 );
 
 router.delete("/:id", validateParams(userIdParamSchema), deleteUser);
